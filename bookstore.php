@@ -41,6 +41,7 @@ function bookstore_register_book_post_type() {
 			'show_in_rest' => true,
 			'type'         => 'string',
 			'default'      => 'ISBN',
+			'label'        => '[ISBN]',
 		)
 	);
 
@@ -52,6 +53,7 @@ function bookstore_register_book_post_type() {
 			'show_in_rest' => true,
 			'type'         => 'string',
 			'default'      => 'Author',
+			'label'        => '[Author]',
 		)
 	);
 
