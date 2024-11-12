@@ -88,6 +88,28 @@ function bookstore_add_isbn_to_quick_edit( $keys, $post ) {
 	return $keys;
 }
 
+add_action( 'init', 'bookstore_register_block_bindings' );
+function bookstore_register_block_bindings() {
+	register_block_bindings_source( 'bookstore/buy-link', array(
+		'label'              => __( 'Buy Online', 'bookstore' ),
+		'get_value_callback' => 'bookstore_buy_link_binding'
+	) );
+}
+
+function bookstore_buy_link_binding() {
+	$post = get_post();
+	if ( 'book' !== $post->post_type ) {
+		return '';
+	}
+	// get isbn
+	$isbn = get_post_meta( $post->ID, 'isbn', true );
+	if ( ! $isbn ) {
+		return '';
+	}
+	// fake the buy link through Amazon
+	return '<a href="https://www.amazon.com/s?k=' . $isbn .'">Buy on Amazon</a>';
+}
+
 
 add_action( 'wp_enqueue_scripts', 'bookstore_enqueue_scripts' );
 function bookstore_enqueue_scripts() {
